@@ -104,8 +104,6 @@ namespace Freelancme.WebApi
 
             services.AddSwaggerGen(options =>
                 {
-                    //options.OperationFilter<RemoveVersionParameters>();
-                    options.DocumentFilter<SetVersionInPaths>();
                     options.DocInclusionPredicate((version, apiDesc) =>
                     {
                         var actionVersions = apiDesc.ActionAttributes().OfType<MapToApiVersionAttribute>().SelectMany(attr => attr.Versions).ToList();
@@ -132,7 +130,8 @@ namespace Freelancme.WebApi
 
                     // add a custom operation filter which sets default values
                     options.OperationFilter<SwaggerDefaultValues>();
-
+                    options.OperationFilter<RemoveVersionParameters>();
+                    options.DocumentFilter<SetVersionInPaths>();
 
                     // integrate xml comments
                     options.IncludeXmlComments(XmlCommentsFilePath);
@@ -176,8 +175,8 @@ namespace Freelancme.WebApi
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<DbContext>();
-                context.Database.Migrate();
+                var context = serviceScope.ServiceProvider.GetRequiredService<IDbContext>();
+                context.Migrate();
             }
         }
 

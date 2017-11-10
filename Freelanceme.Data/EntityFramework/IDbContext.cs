@@ -12,5 +12,7 @@ namespace Freelanceme.Data.EntityFramework
         void SaveSync();
 
         IDbContextTransaction BeginTransaction();
+
+        void Migrate();
     }
 }

@@ -29,6 +29,9 @@ namespace Freelanceme.Data.EntityFramework
         public void SaveSync() =>
             SaveChanges();
 
+        public void Migrate() =>
+            Database.Migrate();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

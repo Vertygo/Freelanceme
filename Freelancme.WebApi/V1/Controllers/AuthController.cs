@@ -55,13 +55,13 @@ namespace Freelancme.WebApi.V1.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> Login([FromBody]Login login)
         {
-            var user = await _userManager.FindByUsername(login.Username);
+            var user = await _userManager.FindByUsername(login?.Username);
 
             if (user != null)
             {
-                var checkPwd = _authManager.CheckPasswordSignIn(user, login.Password);
+                var checkPwd = await _authManager.CheckPasswordSignIn(user, login.Password);
 
-                if (checkPwd.IsCompletedSuccessfully)
+                if (checkPwd.Succeeded)
                 {
                     var claims = new[]
                     {
@@ -82,7 +82,7 @@ namespace Freelancme.WebApi.V1.Controllers
 
             }
 
-            return BadRequest("Invalid login attempt");
+            return NotFound("Invalid login attempt");
         }
 
         /// <summary>
@@ -121,38 +121,5 @@ namespace Freelancme.WebApi.V1.Controllers
 
             return BadRequest("Invalid registration attempt");
         }
-
-
-        //// GET api/values
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/values/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/values
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
