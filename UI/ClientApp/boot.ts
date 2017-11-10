@@ -1,3 +1,4 @@
+// Add support for older IE versions https://github.com/aspnet/JavaScriptServices/wiki/Supporting-Internet-Explorer-11-(or-older)
 import 'core-js/fn/promise';
 import 'core-js/fn/object/assign';
 

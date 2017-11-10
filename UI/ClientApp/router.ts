@@ -12,8 +12,8 @@ const routes = [
         path: '', component: require('./layouts/default.vue.html'),
         children: [
             { path: '/dashboard', component: require('./components/dashboard/dashboard.vue.html') },
-            { path: '/counter', component: require('./components/counter/counter.vue.html') },
-            { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html') }]
+            { path: '/client', component: require('./components/client/client.vue.html') },
+            { path: '/configuration', component: require('./components/configuration/configuration.vue.html') }]
     },
 ];
 

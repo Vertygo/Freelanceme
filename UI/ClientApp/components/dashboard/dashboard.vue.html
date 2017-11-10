@@ -1,6 +1,27 @@
 <template>
-    <div class="wrapper">
-        Secured Area
+    <div>
+        <h1>Dashboard</h1>
+
+        <table v-if="timetrackings.length" class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Working hours</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in timetrackings">
+                    <td>{{ item.Client }}</td>
+                    <td>{{ item.WorkingTime }}</td>
+                    <td>{{ item.StartDate }}</td>
+                    <td>{{ item.EndDate }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p v-else><em>Loading...</em></p>
     </div>
 </template>
 
