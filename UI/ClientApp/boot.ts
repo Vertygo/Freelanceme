@@ -19,20 +19,13 @@ import 'core-js/es6/set';
 import './css/site.css';
 import 'bootstrap';
 import Vue from 'vue';
-//import VueResource from 'vue-resource';
+import * as Router from './router';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
-//Vue.use(VueResource);
-
-const routes = [
-    { path: '/', component: require('./components/home/home.vue.html') },
-    { path: '/counter', component: require('./components/counter/counter.vue.html') },
-    { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html') }
-];
 
 new Vue({
     el: '#app-root',
-    router: new VueRouter({ mode: 'history', routes: routes }),
-    render: h => h(require('./components/app/app.vue.html'))
+    router: Router.default,
+    render: h => h(require('./app/app.vue.html'))
 });
