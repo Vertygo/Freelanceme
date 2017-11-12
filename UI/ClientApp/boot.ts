@@ -22,8 +22,18 @@ import 'bootstrap';
 import Vue from 'vue';
 import * as Router from './router';
 import VueRouter from 'vue-router';
+import Moment from 'moment';
+import VueStrap from 'vue-strap'
 
 Vue.use(VueRouter);
+Vue.use(Moment);
+Vue.use(VueStrap);
+
+Vue.filter('formatDate', function (value: Date) {
+    if (value) {
+        return Moment(value).format('L');
+    }
+});
 
 new Vue({
     el: '#app-root',

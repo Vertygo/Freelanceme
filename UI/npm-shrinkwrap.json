@@ -1416,6 +1416,12 @@
       "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz",
       "dev": true
     },
+    "moment": {
+      "version": "2.19.1",
+      "from": "moment@latest",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.19.1.tgz",
+      "dev": true
+    },
     "ms": {
       "version": "2.0.0",
       "from": "ms@2.0.0",
@@ -2535,6 +2541,12 @@
       "version": "2.6.0",
       "from": "vue-router@>=2.3.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-2.6.0.tgz",
+      "dev": true
+    },
+    "vue-strap": {
+      "version": "2.0.2",
+      "from": "wffranco/vue-strap",
+      "resolved": "git://github.com/wffranco/vue-strap.git#7becab2b3f6e6b7e281afd777c455e3d83fde927",
       "dev": true
     },
     "vue-style-loader": {
