@@ -1,8 +1,11 @@
 <template>
     <div>
         <h1>Dashboard</h1>
+        
+        <!--<datepicker :value="summaryRequest.DateFrom" placeholder="Date from"></datepicker>
+        <datepicker :value="summaryRequest.DateTo" placeholder="Date to"></datepicker>-->
 
-        <table v-if="timetrackings.length" class="table">
+        <table v-if="timeTrackings.length" class="table">
             <thead>
                 <tr>
                     <th>Client</th>
@@ -13,9 +16,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in timetrackings">
+                <tr v-for="item in timeTrackings">
                     <td>{{ item.Client }}</td>
-                    <td>{{ item.WorkingTime }}</td>
+                    <td>{{ item.WorkingHours }}h</td>
                     <td>{{ item.StartDate | formatDate }}</td>
                     <td>{{ item.EndDate | formatDate }}</td>
                     <td><a href="#" v-on:click.stop.prevent="onDetails(item)">Details</a></td>
@@ -25,24 +28,34 @@
 
         <p v-else><em>Loading...</em></p>
 
-        <!--<div class="modal" :class="{ in: showDetails }">-->
-            <modal v-model="showDetails" @ok="showDetails = false">
-                <div class="modal-dialog">
+                <div v-if="showDetails" class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">Modal title</h4>
+                            <h4 class="modal-title">Time tracking details</h4>
                         </div>
                         <div class="modal-body">
-                            Content for the dialog / modal goes here.
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Working hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in timeTrackingDetails">
+                                        <td>{{ item.Date | formatDate}}</td>
+                                        <td>{{ item.WorkingHours }}h</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>Total hours: {{ totalWorkingTime }}</div>
                         </div>
                         <div class="modal-footer">
-                            <a href="#" data-dismiss="modal" class="btn">Close</a>
-                            <a href="#" class="btn btn-primary">Save changes</a>
+                            <a href="#" v-on:click.stop.prevent="onCloseDetails" data-dismiss="modal" class="btn">Close</a>
                         </div>
                     </div>
                 </div>
-            </modal>
     </div>
 </template>
 

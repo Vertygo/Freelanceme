@@ -7,17 +7,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancme", "UI\Freelancme
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancme.WebApi", "Freelancme.WebApi\Freelancme.WebApi.csproj", "{A918DF98-C332-4894-B94B-3CEC5B2DFD9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelanceme.Domain", "Freelanceme.Domain\Freelanceme.Domain.csproj", "{19957EEB-B6E2-4437-AFA8-EFD93C6F2411}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Domain", "Freelanceme.Domain\Freelanceme.Domain.csproj", "{19957EEB-B6E2-4437-AFA8-EFD93C6F2411}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelanceme.Domain.Common", "Freelanceme.Domain.Core\Freelanceme.Domain.Common.csproj", "{74C8FF13-2E80-498E-AF41-BF31E624EDE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Domain.Common", "Freelanceme.Domain.Core\Freelanceme.Domain.Common.csproj", "{74C8FF13-2E80-498E-AF41-BF31E624EDE7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{39B3F28A-87BF-4EBF-8F01-9FAB75F5041A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9C7B0F71-6958-467A-B467-4E18E5D623E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelanceme.Data", "Freelanceme.Data\Freelanceme.Data.csproj", "{3B27F689-8962-443A-A7D5-3129F7EA698B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Data", "Freelanceme.Data\Freelanceme.Data.csproj", "{3B27F689-8962-443A-A7D5-3129F7EA698B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelanceme.Security", "Freelanceme.Security\Freelanceme.Security.csproj", "{9E3B18CE-7F7E-473E-8C7D-DE5E3C81E200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Security", "Freelanceme.Security\Freelanceme.Security.csproj", "{9E3B18CE-7F7E-473E-8C7D-DE5E3C81E200}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelanceme.Tests", "Freelanceme.Tests\Freelanceme.Tests.csproj", "{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{9E3B18CE-7F7E-473E-8C7D-DE5E3C81E200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E3B18CE-7F7E-473E-8C7D-DE5E3C81E200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E3B18CE-7F7E-473E-8C7D-DE5E3C81E200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

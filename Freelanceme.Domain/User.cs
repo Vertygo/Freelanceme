@@ -5,6 +5,13 @@ namespace Freelanceme.Domain
 {
     public class User : Entity
     {
+        /// <summary>
+        /// Ef trickery
+        /// </summary>
+        private User()
+        {
+
+        }
 
         public User(string name, string surname, string username, string email)
         {

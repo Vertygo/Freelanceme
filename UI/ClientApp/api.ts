@@ -7,9 +7,10 @@ export const urls = {
 };
 
 
-export function get<T>(relUrl: string): AxiosPromise<T> {
+export function get<T>(relUrl: string, data?: any): AxiosPromise<T> {
     var config: AxiosRequestConfig = {
         baseURL: urls.apiUrl,
+        params: data,
         headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${store.state.access_token}`

@@ -1,15 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Freelanceme.Security;
-using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-using System.Text;
-using System;
 using System.Collections.Generic;
-using Freelancme.WebApi.V1.Dto;
+using Freelancme.WebApi.V1.Services.Interfaces;
+using Freelancme.WebApi.V1.Dto.Request;
 
 namespace Freelancme.WebApi.V1.Controllers
 {
@@ -18,17 +13,11 @@ namespace Freelancme.WebApi.V1.Controllers
     [Route("api/auth")]
     public class AuthController : Controller
     {
-        private readonly IUserManager _userManager;
-        private readonly IAuthManager _authManager;
-        private readonly IConfiguration _config;
+        private readonly IAuthService _authService;
 
-        public AuthController(IConfiguration config,
-            IUserManager userManager,
-            IAuthManager authManager)
+        public AuthController(IAuthService authService)
         {
-            _userManager = userManager;
-            _authManager = authManager;
-            _config = config;
+            _authService = authService;
         }
 
         /// <summary>
@@ -53,36 +42,14 @@ namespace Freelancme.WebApi.V1.Controllers
         [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
         [ProducesResponseType(typeof(IDictionary<string, string>), 403)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Login([FromBody]Login login)
+        public async Task<IActionResult> Login([FromBody]LoginRequest login)
         {
-            var user = await _userManager.FindByUsername(login?.Username);
+            var token = await _authService.Login(login);
 
-            if (user != null)
-            {
-                var checkPwd = await _authManager.CheckPasswordSignIn(user, login.Password);
-
-                if (checkPwd.Succeeded)
-                {
-                    var claims = new[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                        new Claim(JwtRegisteredClaimNames.Jti, user.Id),
-                    };
-
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                        _config["Tokens:Audience"],
-                        claims,
-                        expires: DateTime.Now.AddMinutes(30), // what about system integration?
-                        signingCredentials: creds);
-
-                    return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-                }
-
-            }
-
-            return NotFound("Invalid login attempt");
+            if (token != null)
+                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+            else
+                return NotFound("Invalid login attempt");
         }
 
         /// <summary>
@@ -110,16 +77,11 @@ namespace Freelancme.WebApi.V1.Controllers
         [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
         [ProducesResponseType(typeof(IDictionary<string, string>), 403)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Register([FromBody]Register register)
+        public async Task<IActionResult> Register([FromBody]RegisterRequest request)
         {
-            var signinResult = await _userManager.CreateUser(register.Name, register.Surname, register.Username, register.Email, register.Password);
+            var isCreated = await _authService.CreateUser(request);
 
-            if (signinResult.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest("Invalid registration attempt");
+            return isCreated ? (IActionResult)Ok() : BadRequest("Invalid registration attempt");
         }
     }
 }

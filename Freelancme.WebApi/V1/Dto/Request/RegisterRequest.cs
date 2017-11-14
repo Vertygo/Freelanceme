@@ -1,6 +1,6 @@
-﻿namespace Freelancme.WebApi.V1.Dto
+﻿namespace Freelancme.WebApi.V1.Dto.Request
 {
-    public class Register
+    public class RegisterRequest
     {
         public string Name { get; set; }
 

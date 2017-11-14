@@ -1,24 +1,19 @@
 <template>
     <div>
-        <h1>Weather forecast</h1>
-
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1>Clients</h1>
 
         <table v-if="forecasts.length" class="table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Tax Payer</th>
+                    <th>Is Active</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in forecasts">
-                    <td>{{ item.DateFormatted }}</td>
-                    <td>{{ item.TemperatureC }}</td>
-                    <td>{{ item.TemperatureF }}</td>
-                    <td>{{ item.Summary }}</td>
+                <tr v-for="item in clients">
+                    <td>{{ item.Name }}</td>
                 </tr>
             </tbody>
         </table>

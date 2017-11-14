@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Freelanceme.Data.EntityFramework.Mappings
 {
-    public class PartnerMap : IEntityTypeConfiguration<Partner>
+    public class PartnerMap : IEntityTypeConfiguration<Client>
     {
-        public void Configure(EntityTypeBuilder<Partner> builder)
+        public void Configure(EntityTypeBuilder<Client> builder)
         {
-            builder.ToTable(nameof(Partner));
+            builder.ToTable(nameof(Client));
         }
     }
 }

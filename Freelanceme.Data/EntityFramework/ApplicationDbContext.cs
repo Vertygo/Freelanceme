@@ -13,12 +13,17 @@ namespace Freelanceme.Data.EntityFramework
     {
         private readonly IConfiguration _config;
 
-        public IDbContextTransaction BeginTransaction() =>
-            Database.BeginTransaction();
 
         public ApplicationDbContext(IConfiguration config)
             : base(new DbContextOptions<ApplicationDbContext>()) =>
             _config = config;
+
+        internal ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+            : base(options) { }
+
+        public IDbContextTransaction BeginTransaction() =>
+            Database.BeginTransaction();
+
 
         public DbSet<TEntity> GetSet<TEntity>() where TEntity : Entity =>
             Set<TEntity>();
@@ -35,7 +40,9 @@ namespace Freelanceme.Data.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(_config[Constants.CONNECTION_STRING]);
+
+            if (_config != null)
+                optionsBuilder.UseSqlServer(_config[Constants.CONNECTION_STRING]);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -39,5 +39,7 @@ namespace Freelanceme.Security
             return result;
         }
 
+        public async Task<AppUser> GetUserAsync(ClaimsPrincipal principal) 
+            => await _userManager.GetUserAsync(principal);
     }
 }

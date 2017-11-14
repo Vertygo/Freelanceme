@@ -20,6 +20,9 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using AutoMapper;
+using MediatR;
+using System.Security.Claims;
 
 namespace Freelancme.WebApi
 {
@@ -35,6 +38,9 @@ namespace Freelancme.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+            services.AddMediatR();
+
             services
                 .AddEntityFrameworkSqlServer()
                 .AddDbContext<ApplicationDbContext>(options =>
@@ -96,7 +102,7 @@ namespace Freelancme.WebApi
                     },
                     new MediaTypeApiVersionReader("api-version"));
             });
-
+            
             //Makes all json objects look exactly the same as the original .net object. Keeps CamelCase on properties for example.;
             services.AddMvc().AddJsonOptions(config => config.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddMvcCore().AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VV");
@@ -172,6 +178,18 @@ namespace Freelancme.WebApi
                     defaults: new { controller = "Home", action = "Index" }
                 );
             });
+
+            ////JWT user issue https://github.com/aspnet/Security/issues/1043
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.User.HasClaim(c => c.Type == ClaimTypes.NameIdentifier) && !context.User.HasClaim(c => c.Type == "sub"))
+            //    {
+            //        var newIdentity = ((ClaimsIdentity)context.User.Identity);
+            //        newIdentity.AddClaim(new Claim("sub", context.User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            //        context.User = new ClaimsPrincipal(newIdentity);
+            //    }
+            //    await next();
+            //});
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

@@ -7,5 +7,12 @@ namespace Freelanceme.Domain
 {
     public class Project : Entity
     {
+        /// <summary>
+        /// Ef trickery
+        /// </summary>
+        private Project()
+        {
+
+        }
     }
 }

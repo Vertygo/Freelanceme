@@ -24,12 +24,15 @@ namespace Freelancme.WebApi
                     parameter.Description = description.ModelMetadata?.Description;
                 }
 
-                if (parameter.Default == null)
+                if (description.RouteInfo != null)
                 {
-                    parameter.Default = description.RouteInfo.DefaultValue;
-                }
+                    if (parameter.Default == null)
+                    {
+                        parameter.Default = description.RouteInfo.DefaultValue;
+                    }
 
-                parameter.Required |= !description.RouteInfo.IsOptional;
+                    parameter.Required |= !description.RouteInfo.IsOptional;
+                }
             }
         }
     }

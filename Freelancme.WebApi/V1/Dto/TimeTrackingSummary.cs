@@ -4,6 +4,8 @@ namespace Freelancme.WebApi.V1.Dto
 {
     public class TimeTrackingSummary
     {
+        public Guid ClientID { get; set; }
+
         /// <summary>
         /// Name of the client
         /// </summary>
@@ -22,6 +24,7 @@ namespace Freelancme.WebApi.V1.Dto
         /// <summary>
         /// Working time summary (hours, monutes)
         /// </summary>
-        public string WorkingTime { get; set; }
+        public decimal WorkingHours { get; set; }
+
     }
 }

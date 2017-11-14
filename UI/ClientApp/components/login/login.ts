@@ -3,7 +3,7 @@ import { Component } from 'vue-property-decorator'
 import * as Api from '../../api'
 import * as Store from '../../store/store'
 
-interface LoginDto {
+interface LoginRequest {
     Username: string;
     Password: string;
 }
@@ -15,9 +15,9 @@ interface Token {
 @Component
 export default class Login extends Vue {
 
-    model: LoginDto = {
-        Username: 'ivanm',
-        Password: 'abcd'
+    model: LoginRequest = {
+        Username: '',
+        Password: ''
     };
 
     onCreateAccount() {
