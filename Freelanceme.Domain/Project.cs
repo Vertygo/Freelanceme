@@ -1,7 +1,5 @@
 ﻿using Freelanceme.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Freelanceme.Domain
 {
@@ -14,5 +12,12 @@ namespace Freelanceme.Domain
         {
 
         }
+
+        [StringLength(50, ErrorMessage = "Project name cannot be longer than 50 characters.")]
+        public string Name { get; set; }
+
+        public Client Client { get; set; }
+        
+        public bool IsActive { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Freelanceme.Domain
         [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
         public string Surname { get; set; }
         
-        public bool Company { get; set; }
+        public bool IsCompany { get; set; }
 
         [StringLength(100, ErrorMessage = "Company name cannot be longer than 100 characters.")]
         public string CompanyName { get; set; }
@@ -30,5 +30,7 @@ namespace Freelanceme.Domain
 
         [StringLength(100, ErrorMessage = "Website cannot be longer than 100 characters.")]
         public string Website { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

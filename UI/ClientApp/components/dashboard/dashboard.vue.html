@@ -4,8 +4,8 @@
         
         <!--<datepicker :value="summaryRequest.DateFrom" placeholder="Date from"></datepicker>
         <datepicker :value="summaryRequest.DateTo" placeholder="Date to"></datepicker>-->
-
-        <table v-if="timeTrackings.length" class="table">
+        <button class="btn btn-lg navbar-right btn-right btn-primary" name="LogWork" type="Submit" v-on:click.stop.prevent="onShowLogWork">Log Work</button>
+        <table v-if="loaded" class="table">
             <thead>
                 <tr>
                     <th>Client</th>
@@ -28,35 +28,55 @@
 
         <p v-else><em>Loading...</em></p>
 
-                <div v-if="showDetails" class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">Time tracking details</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Working hours</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="item in timeTrackingDetails">
-                                        <td>{{ item.Date | formatDate}}</td>
-                                        <td>{{ item.WorkingHours }}h</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>Total hours: {{ totalWorkingTime }}</div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" v-on:click.stop.prevent="onCloseDetails" data-dismiss="modal" class="btn">Close</a>
-                        </div>
-                    </div>
+        <div v-if="showDetails" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" v-on:click="onCloseDetails">X</button>
+                    <h4 class="modal-title">Time tracking details</h4>
                 </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Working hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in timeTrackingDetails">
+                                <td>{{ item.Date | formatDate}}</td>
+                                <td>{{ item.WorkingHours }}h</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>Total hours: {{ totalWorkingTime }}</div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" v-on:click.stop.prevent="onCloseDetails" data-dismiss="modal" class="btn">Close</a>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="showLogWork" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" v-on:click="onCloseLogWork">X</button>
+                    <h4 class="modal-title">Log Work</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" class="form-control" v-on:submit.prevent="onSubmit">
+                        <!--<input type="text" class="form-control" name="Email" v-model="model.ClientId" placeholder="Email" required="required" autofocus="" />
+                        <input type="text" class="form-control" name="Name" v-model="model.ProjectId" placeholder="Name" required="required" autofocus="" />-->
+                        <input type="date" class="form-control" name="Date" v-model="model.Date" placeholder="Date" required="required" autofocus="" />
+                        <input type="number" class="form-control" name="Hours" v-model="model.Hours" placeholder="Hours" required="required" autofocus="" />
+
+                        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Save" type="Submit">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
+<style src="./dashboard.css" />
 <script src="./dashboard.ts"></script>

@@ -10,9 +10,11 @@ namespace Freelanceme.Domain.Core
     {
         void Add(TEntity entity);
 
-        TEntity Get(Guid id);
+        Task<TEntity> GetAsync(Guid id);
 
-        IEnumerable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths);
+        Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths);
+
+        Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] paths);
 
         void Remove(TEntity entity);
 

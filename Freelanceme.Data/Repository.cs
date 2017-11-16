@@ -20,9 +20,40 @@ namespace Freelanceme.Data
         public void Add(TEntity entity) => 
             _dbContext.GetSet<TEntity>().Add(entity);
 
-        public TEntity Get(Guid id) => 
-            _dbContext.GetSet<TEntity>().FirstOrDefault(x => x.Id.Equals(id));
-        
+        public async Task<TEntity> GetAsync(Guid id) => 
+            await _dbContext.GetSet<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+        public async Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths)
+        {
+            var result = _dbContext.GetSet<TEntity>().Where(filter);
+
+            if (!paths.Any())
+                return await result.ToListAsync();
+
+            foreach (var expression in paths)
+            {
+                result = result.Include(expression);
+            }
+
+            return await result.ToListAsync();
+        }
+
+        public async Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] paths)
+        {
+            var result = _dbContext.GetSet<TEntity>().AsQueryable();
+
+            if (!paths.Any())
+                return await result.ToListAsync();
+
+            foreach (var expression in paths)
+            {
+                result = result.Include(expression);
+            }
+
+            return await result.ToListAsync();
+        }
+            
+
         public void Remove(TEntity entity) =>        
             _dbContext.GetSet<TEntity>().Remove(entity);
 
@@ -35,16 +66,5 @@ namespace Freelanceme.Data
 
         public void SaveChanges() =>
             _dbContext.SaveSync();
-
-        public IEnumerable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths)
-        {
-            var result = _dbContext.GetSet<TEntity>().Where(filter);
-            if (!paths.Any()) return result;
-            foreach (var expression in paths)
-            {
-                result = result.Include(expression);
-            }
-            return result;
-        }
     }
 }

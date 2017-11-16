@@ -23,7 +23,8 @@ namespace Freelancme.WebApi
             builder.RegisterType<ApplicationDbContext>().As<IDbContext>().InstancePerDependency();
             builder.RegisterType<AuthService>().As<IAuthService>().InstancePerDependency();
             builder.RegisterType<ClientService>().As<IClientService>().InstancePerDependency();
-            
+            builder.RegisterType<TimeTrackingService>().As<ITimeTrackingService>().InstancePerDependency();
+
             builder.Populate(services);
 
             return new AutofacServiceProvider(builder.Build());
