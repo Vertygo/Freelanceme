@@ -2,7 +2,7 @@
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
 
-namespace Freelancme.WebApi
+namespace Freelanceme.WebApi
 {
     public class SwaggerDefaultValues : IOperationFilter
     {

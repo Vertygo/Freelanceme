@@ -1,6 +1,6 @@
 ﻿using Freelanceme.Security;
-using Freelancme.WebApi.V1.Dto.Request;
-using Freelancme.WebApi.V1.Services.Interfaces;
+using Freelanceme.WebApi.V1.Dto.Request;
+using Freelanceme.WebApi.V1.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Freelancme.WebApi.V1.Services
+namespace Freelanceme.WebApi.V1.Services
 {
     public class AuthService : IAuthService
     {

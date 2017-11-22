@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Freelancme.WebApi.V1.Services.Interfaces;
-using Freelancme.WebApi.V1.Dto;
-using Freelancme.WebApi.V1.Dto.Request;
+using Freelanceme.WebApi.V1.Services.Interfaces;
+using Freelanceme.WebApi.V1.Dto;
+using Freelanceme.WebApi.V1.Dto.Request;
 
-namespace Freelancme.WebApi.V1.Controllers
+namespace Freelanceme.WebApi.V1.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/timetracking")]

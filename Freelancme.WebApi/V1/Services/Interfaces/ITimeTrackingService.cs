@@ -1,10 +1,10 @@
-﻿using Freelancme.WebApi.V1.Dto;
-using Freelancme.WebApi.V1.Dto.Request;
+﻿using Freelanceme.WebApi.V1.Dto;
+using Freelanceme.WebApi.V1.Dto.Request;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Freelancme.WebApi.V1.Services.Interfaces
+namespace Freelanceme.WebApi.V1.Services.Interfaces
 {
     public interface ITimeTrackingService
     {

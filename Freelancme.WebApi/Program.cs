@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Freelancme.WebApi
+namespace Freelanceme.WebApi
 {
     public class Program
     {

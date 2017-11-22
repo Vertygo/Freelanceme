@@ -1,8 +1,8 @@
-﻿using Freelancme.WebApi.V1.Dto.Request;
+﻿using Freelanceme.WebApi.V1.Dto.Request;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
-namespace Freelancme.WebApi.V1.Services.Interfaces
+namespace Freelanceme.WebApi.V1.Services.Interfaces
 {
     public interface IAuthService
     {

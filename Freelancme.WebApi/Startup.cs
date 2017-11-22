@@ -24,7 +24,7 @@ using AutoMapper;
 using MediatR;
 using System.Security.Claims;
 
-namespace Freelancme.WebApi
+namespace Freelanceme.WebApi
 {
     public class Startup
     {

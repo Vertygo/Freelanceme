@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Freelancme.WebApi.V1.Dto.Request
+namespace Freelanceme.WebApi.V1.Dto.Request
 {
     public class TimeTrackingDetailRequest
     {

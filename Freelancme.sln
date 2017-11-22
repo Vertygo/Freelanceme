@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancme", "UI\Freelancme.csproj", "{B4416397-CF4C-40F2-8463-0FBCEEFDBBBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme", "UI\Freelanceme.csproj", "{B4416397-CF4C-40F2-8463-0FBCEEFDBBBE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelancme.WebApi", "Freelancme.WebApi\Freelancme.WebApi.csproj", "{A918DF98-C332-4894-B94B-3CEC5B2DFD9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.WebApi", "Freelancme.WebApi\Freelanceme.WebApi.csproj", "{A918DF98-C332-4894-B94B-3CEC5B2DFD9C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Domain", "Freelanceme.Domain\Freelanceme.Domain.csproj", "{19957EEB-B6E2-4437-AFA8-EFD93C6F2411}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Data", "Freelan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Security", "Freelanceme.Security\Freelanceme.Security.csproj", "{9E3B18CE-7F7E-473E-8C7D-DE5E3C81E200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelanceme.Tests", "Freelanceme.Tests\Freelanceme.Tests.csproj", "{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Freelanceme.Tests", "Freelanceme.Tests\Freelanceme.Tests.csproj", "{943AF0A9-80F5-4785-B5B3-64D73CA8DA29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

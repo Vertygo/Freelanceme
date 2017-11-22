@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Collections.Generic;
-using Freelancme.WebApi.V1.Services.Interfaces;
-using Freelancme.WebApi.V1.Dto.Request;
+using Freelanceme.WebApi.V1.Services.Interfaces;
+using Freelanceme.WebApi.V1.Dto.Request;
 
-namespace Freelancme.WebApi.V1.Controllers
+namespace Freelanceme.WebApi.V1.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/auth")]

@@ -2,14 +2,14 @@
 using Freelanceme.Domain;
 using Freelanceme.Domain.Core;
 using Freelanceme.Security;
-using Freelancme.WebApi.V1.Dto;
-using Freelancme.WebApi.V1.Services.Interfaces;
+using Freelanceme.WebApi.V1.Dto;
+using Freelanceme.WebApi.V1.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Freelancme.WebApi.V1.Services
+namespace Freelanceme.WebApi.V1.Services
 {
     public class ClientService : IClientService
     {

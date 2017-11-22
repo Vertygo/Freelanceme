@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Freelanceme.Domain;
-using Freelancme.WebApi.V1.Dto;
+using Freelanceme.WebApi.V1.Dto;
 
-namespace Freelancme.WebApi
+namespace Freelanceme.WebApi
 {
     public class AutoMapperProfile : Profile
     {

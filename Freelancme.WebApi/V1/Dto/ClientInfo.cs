@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Freelancme.WebApi.V1.Dto
+namespace Freelanceme.WebApi.V1.Dto
 {
     public class ClientInfo
     {

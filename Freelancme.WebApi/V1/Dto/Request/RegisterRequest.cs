@@ -1,4 +1,4 @@
-﻿namespace Freelancme.WebApi.V1.Dto.Request
+﻿namespace Freelanceme.WebApi.V1.Dto.Request
 {
     public class RegisterRequest
     {

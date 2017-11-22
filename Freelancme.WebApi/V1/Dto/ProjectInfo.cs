@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Freelancme.WebApi.V1.Dto
+namespace Freelanceme.WebApi.V1.Dto
 {
     public class ProjectInfo
     {

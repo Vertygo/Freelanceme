@@ -6,10 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Freelanceme.Security;
 using Freelanceme.Data;
 using Freelanceme.Domain.Core;
-using Freelancme.WebApi.V1.Services;
-using Freelancme.WebApi.V1.Services.Interfaces;
+using Freelanceme.WebApi.V1.Services;
+using Freelanceme.WebApi.V1.Services.Interfaces;
 
-namespace Freelancme.WebApi
+namespace Freelanceme.WebApi
 {
     internal static class Bootstrap
     {
