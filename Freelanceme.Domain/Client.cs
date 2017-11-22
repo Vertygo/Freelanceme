@@ -1,4 +1,5 @@
 ﻿using Freelanceme.Domain.Common;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Freelanceme.Domain
@@ -31,6 +32,8 @@ namespace Freelanceme.Domain
         [StringLength(100, ErrorMessage = "Website cannot be longer than 100 characters.")]
         public string Website { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }     
+        
+        public List<Project> Projects { get; set; }
     }
 }

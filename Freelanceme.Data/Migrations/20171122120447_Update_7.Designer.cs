@@ -11,9 +11,10 @@ using System;
 namespace Freelanceme.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171122120447_Update_7")]
+    partial class Update_7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,8 +108,7 @@ namespace Freelanceme.Data.Migrations
 
                     b.Property<Guid>("ClientId");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("Date");
+                    b.Property<DateTime>("Date");
 
                     b.Property<Guid>("ProjectId");
 

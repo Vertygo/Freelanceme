@@ -4,3 +4,8 @@
         padding-top: 50px;
     }
 }
+
+.left {
+    float: left;
+    width: auto;
+}

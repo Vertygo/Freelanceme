@@ -12,13 +12,15 @@ namespace Freelanceme.Domain.Core
 
         Task<TEntity> GetAsync(Guid id);
 
+        Task<TEntity> GetAsync<TProperty>(Guid id, params Expression<Func<TEntity, TProperty>>[] paths);
+
         Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths);
 
         Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] paths);
 
         void Remove(TEntity entity);
 
-        void Modify(TEntity entity);
+        void Update(TEntity entity);
 
         Task<bool> SaveChangesAsync();
 

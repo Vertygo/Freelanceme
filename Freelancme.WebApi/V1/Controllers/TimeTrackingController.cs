@@ -13,8 +13,9 @@ namespace Freelancme.WebApi.V1.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/timetracking")]
-    [Route("api/client")]
+    [Route("api/timetracking")]
     [Authorize]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class TimeTrackingController : Controller
     {
 
@@ -42,5 +43,14 @@ namespace Freelancme.WebApi.V1.Controllers
         [Produces("application/json")]
         public async Task<IEnumerable<TimeTrackingDetails>> GetTimeTrackingDetails([FromQuery]TimeTrackingDetailRequest request)
             => await _timeTrackingService.GetTimeTrackingDetails(request, User);
+
+        /// <summary>
+        /// Display detailed information about time tracking for each client
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("save")]
+        [Produces("application/json")]
+        public async Task<bool> SaveTimeLog([FromBody]TimeLog request)
+            => await _timeTrackingService.SaveTimeLogAsync(request, User);
     }
 }

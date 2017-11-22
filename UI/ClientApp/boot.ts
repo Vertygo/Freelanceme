@@ -31,7 +31,13 @@ Vue.use(VueStrap);
 
 Vue.filter('formatDate', function (value: Date) {
     if (value) {
-        return Moment(value).format('L');
+        return Moment(value).format('l');
+    }
+});
+
+Vue.filter('toDate', function (value: string) {
+    if (value) {
+        return Moment.parseZone(value, 'l').toDate();
     }
 });
 

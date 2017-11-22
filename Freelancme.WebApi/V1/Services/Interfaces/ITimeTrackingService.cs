@@ -11,5 +11,7 @@ namespace Freelancme.WebApi.V1.Services.Interfaces
         Task<IEnumerable<TimeTrackingSummary>> GetTimeTrackingSummary(TimeTrackingSummaryRequest request, ClaimsPrincipal user);
 
         Task<IEnumerable<TimeTrackingDetails>> GetTimeTrackingDetails(TimeTrackingDetailRequest request, ClaimsPrincipal user);
+
+        Task<bool> SaveTimeLogAsync(TimeLog timeLog, ClaimsPrincipal user);
     }
 }

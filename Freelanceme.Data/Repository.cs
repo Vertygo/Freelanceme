@@ -8,6 +8,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using System.Runtime.CompilerServices;
+using System.Threading;
+using Microsoft.EntityFrameworkCore.Query;
+
 namespace Freelanceme.Data
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
@@ -17,11 +21,30 @@ namespace Freelanceme.Data
         public Repository(IDbContext dbContext) =>
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
-        public void Add(TEntity entity) => 
+        public void Add(TEntity entity) =>
             _dbContext.GetSet<TEntity>().Add(entity);
 
-        public async Task<TEntity> GetAsync(Guid id) => 
+        public void Update(TEntity entity) =>
+            _dbContext.GetSet<TEntity>().Update(entity);
+
+        public async Task<TEntity> GetAsync(Guid id) =>
             await _dbContext.GetSet<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+        public async Task<TEntity> GetAsync<TProperty>(Guid id, params Expression<Func<TEntity, TProperty>>[] paths)
+        {
+            var result = _dbContext.GetSet<TEntity>().Where(i => i.Id == id);
+
+            if (!paths.Any())
+                return await result.FirstOrDefaultAsync();
+
+            IIncludableQueryable<TEntity, TProperty> includeResult = null;
+            foreach (var expression in paths)
+            {
+                includeResult = result.Include(expression);
+            }
+
+            return await includeResult.FirstOrDefaultAsync();
+        }
 
         public async Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths)
         {
@@ -56,10 +79,6 @@ namespace Freelanceme.Data
 
         public void Remove(TEntity entity) =>        
             _dbContext.GetSet<TEntity>().Remove(entity);
-
-
-        public void Modify(TEntity entity) =>
-            _dbContext.GetSet<TEntity>().Update(entity);
 
         public async Task<bool> SaveChangesAsync() => 
             await _dbContext.SaveAsync() > 0;

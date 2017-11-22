@@ -1,24 +1,59 @@
 <template>
     <div>
         <h1>Clients</h1>
+        <button class="btn btn-lg navbar-right btn-right btn-primary" name="editClient" type="Submit" v-on:click="onAddClient">Add client</button>
 
-        <table v-if="clients.length" class="table">
+        <!-- Table -->
+        <table v-if="loaded" class="table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Address</th>
-                    <th>Tax Payer</th>
+                    <th>Is Company</th>
                     <th>Is Active</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in clients">
                     <td>{{ item.Name }}</td>
+                    <td>{{ item.Address }}</td>
+                    <td><checkbox v-model="item.IsCompany" readonly=""></checkbox></td>
+                    <td><checkbox v-model="item.IsActive" readonly=""></checkbox></td>
+                    <td><button type="button" class="btn btn-link" v-on:click="onEditClient(item.Id)">Edit</button></td>
                 </tr>
             </tbody>
         </table>
-
         <p v-else><em>Loading...</em></p>
+
+        <!-- Edit Dialog -->
+        <modal v-model="editClient" @ok="editClient = false" title="Client">
+            <div slot="modal-body" class="modal-body">
+                <div>
+                    <label for="Company">Is Company</label>
+                    <input type="checkbox" class="form-control left" name="Company" v-model="model.IsCompany" placeholder="Is Company" text />
+                    <input type="text" class="form-control" name="Company" v-if="model.IsCompany" v-model="model.CompanyName" placeholder="Company Name" />
+                </div>
+                <br />
+                <input type="text" class="form-control" name="Name" v-model="model.Name" placeholder="Contact Name" required="required" />
+                <input type="text" class="form-control" name="Surname" v-model="model.Surname" placeholder="Contact Surname" required="required" />
+                <input type="text" class="form-control" name="Surname" v-model="model.Website" placeholder="Website" required="required" />
+                <br />
+                <input type="text" class="form-control" name="Country" v-model="model.AddressCountry" placeholder="Country" required="required" />
+                <input type="text" class="form-control" name="City" v-model="model.AddressCity" placeholder="City" required="required" />
+                <input type="text" class="form-control" name="Street" v-model="model.AddressStreet" placeholder="Street" required="required" />
+
+                <div>
+                    <label for="Active">Is Active</label>
+                    <input type="checkbox" class="form-control left" name="Active" v-model="model.IsActive" placeholder="Is Active" />
+                </div>
+            </div>
+            <div slot="modal-footer" class="modal-footer">
+                <button type="button" class="btn btn-default" @click="editClient = false">Cancel</button>
+                <button type="button" class="btn btn-success" v-on:click="saveClient">Save</button>
+            </div>
+        </modal>
+
     </div>
 </template>
 

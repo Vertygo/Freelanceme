@@ -7,6 +7,7 @@
     "lib": [ "dom", "es5", "scripthost", "es2015.promise", "es2015" ],
     "target": "es5",
     "sourceMap": true,
+    "strictNullChecks": true,
     "skipDefaultLibCheck": true,
     "strict": true,
     "types": [ "webpack-env" ]
