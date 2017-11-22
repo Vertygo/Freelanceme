@@ -3,6 +3,7 @@ using Freelanceme.Domain.Core;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Freelanceme.Security
 {
@@ -39,7 +40,14 @@ namespace Freelanceme.Security
             return result;
         }
 
-        public async Task<AppUser> GetUserAsync(ClaimsPrincipal principal) 
+        public async Task<AppUser> GetAppUserAsync(ClaimsPrincipal principal) 
             => await _userManager.GetUserAsync(principal);
+
+        public async Task<User> GetUserAsync(ClaimsPrincipal principal)
+        {
+            var username = (await GetAppUserAsync(principal)).UserName;
+
+            return (await _userRepository.GetFilteredAsync(u => u.Username == username)).FirstOrDefault(); // we should have same guid in both tables?
+        }
     }
 }

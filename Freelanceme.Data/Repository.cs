@@ -7,9 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-
-using System.Runtime.CompilerServices;
-using System.Threading;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace Freelanceme.Data
@@ -27,63 +24,62 @@ namespace Freelanceme.Data
         public void Update(TEntity entity) =>
             _dbContext.GetSet<TEntity>().Update(entity);
 
-        public async Task<TEntity> GetAsync(Guid id) =>
-            await _dbContext.GetSet<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+        public Task<TEntity> GetAsync(Guid id) =>
+            _dbContext.GetSet<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
 
-        public async Task<TEntity> GetAsync<TProperty>(Guid id, params Expression<Func<TEntity, TProperty>>[] paths)
-        {
-            var result = _dbContext.GetSet<TEntity>().Where(i => i.Id == id);
+        public Task<TEntity> GetAsync<TProperty>(Guid id, params Expression<Func<TEntity, TProperty>>[] paths) =>
+            GetAsync<TEntity>(f => f.Id == id);
 
-            if (!paths.Any())
-                return await result.FirstOrDefaultAsync();
-
-            IIncludableQueryable<TEntity, TProperty> includeResult = null;
-            foreach (var expression in paths)
-            {
-                includeResult = result.Include(expression);
-            }
-
-            return await includeResult.FirstOrDefaultAsync();
-        }
-
-        public async Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths)
+        public Task<TEntity> GetAsync<TProperty>(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, TProperty>>[] paths)
         {
             var result = _dbContext.GetSet<TEntity>().Where(filter);
 
-            if (!paths.Any())
-                return await result.ToListAsync();
+            if (paths.Length == 0)
+                return result.FirstOrDefaultAsync();
+
+            IIncludableQueryable<TEntity, TProperty> includeResult = null;
 
             foreach (var expression in paths)
-            {
-                result = result.Include(expression);
-            }
+                includeResult = result.Include(expression);
 
-            return await result.ToListAsync();
+            return includeResult.FirstOrDefaultAsync();
         }
 
-        public async Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] paths)
+        public Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths)
+        {
+            var result = _dbContext.GetSet<TEntity>().Where(filter);
+
+            if (paths.Length == 0)
+                return result.ToListAsync();
+
+            foreach (var expression in paths)
+                result = result.Include(expression);
+
+            return result.ToListAsync();
+        }
+
+        public Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] paths)
         {
             var result = _dbContext.GetSet<TEntity>().AsQueryable();
 
-            if (!paths.Any())
-                return await result.ToListAsync();
+            if (paths.Length == 0)
+                return result.ToListAsync();
 
             foreach (var expression in paths)
-            {
                 result = result.Include(expression);
-            }
 
-            return await result.ToListAsync();
+            return result.ToListAsync();
         }
             
 
-        public void Remove(TEntity entity) =>        
+        public void Remove(TEntity entity) =>
             _dbContext.GetSet<TEntity>().Remove(entity);
 
-        public async Task<bool> SaveChangesAsync() => 
+        public async Task<bool> SaveChangesAsync() =>
             await _dbContext.SaveAsync() > 0;
 
         public void SaveChanges() =>
             _dbContext.SaveSync();
+
     }
 }

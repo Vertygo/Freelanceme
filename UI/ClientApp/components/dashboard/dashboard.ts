@@ -1,6 +1,6 @@
 ﻿import Vue from 'vue'
 import { Component, Watch, Prop, Model } from 'vue-property-decorator'
-import { datepicker, modal, dropdown, select } from 'vue-strap'
+import { datepicker, modal, dropdown, select, formValidator, input } from 'vue-strap'
 import { ClientInfo, Project } from '../../common'
 import Moment from 'moment';
 import * as Api from '../../api'
@@ -43,7 +43,9 @@ interface LogWork {
         datepicker: datepicker,
         modal: modal,
         dropdown: dropdown,
-        vselect: select
+        vselect: select,
+        formValidator: formValidator,
+        bsInput: input
     }
 })
 export default class Dashboard extends Vue {
@@ -61,6 +63,8 @@ export default class Dashboard extends Vue {
     showDetails: boolean = false;
     showLogWork: boolean = false;
     loaded: boolean = false;
+    validEntry: boolean = false;
+
 
     get totalWorkingTime(): number {
         return this.timeTrackingDetails
@@ -70,16 +74,19 @@ export default class Dashboard extends Vue {
     
     @Watch('model', { immediate: false, deep: true })
     onModelChanged(changed: LogWork) {
-        if (changed != null && changed.ClientId != null)
-        {
-            let list = this.clients.find(c => c.Id == changed.ClientId)!.Projects;
-            this.projects = list;
+        if (changed != null && changed.ClientId != null) {
+            let selectedClient = this.clients.find(c => c.Id == changed.ClientId);
 
-            if (list.length)
-                this.model.ProjectId = list[0].Id;
+            if(selectedClient != null){
+                this.projects = selectedClient.Projects;
+            }
+
+            if (this.projects.length)
+                this.model.ProjectId = this.projects[0].Id;
         }
-        else
+        else{
             this.projects = [];
+        }
     }
     
     async mounted() {

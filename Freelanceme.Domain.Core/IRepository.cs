@@ -12,7 +12,7 @@ namespace Freelanceme.Domain.Core
 
         Task<TEntity> GetAsync(Guid id);
 
-        Task<TEntity> GetAsync<TProperty>(Guid id, params Expression<Func<TEntity, TProperty>>[] paths);
+        Task<TEntity> GetAsync<TProperty>(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, TProperty>>[] paths);
 
         Task<List<TEntity>> GetFilteredAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] paths);
 

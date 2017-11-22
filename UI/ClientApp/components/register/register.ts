@@ -4,23 +4,17 @@ import * as Api from '../../api'
 import Router from '../../router'
 
 interface RegisterDto {
-    Name: string;
-    Surname: string;
-    Email: string;
-    Username: string;
-    Password: string;
+    Name?: string;
+    Surname?: string;
+    Email?: string;
+    Username?: string;
+    Password?: string;
 }
 
 @Component
 export default class Register extends Vue {
 
-    model: RegisterDto = {
-        Name: 'Ivan',
-        Surname: 'Milosavljevic',
-        Email: 'test@test.com',
-        Username: 'ivanm',
-        Password: 'test'
-    };
+    model: RegisterDto = {};
 
     errors: any;
 

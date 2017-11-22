@@ -30,7 +30,7 @@ namespace Freelancme.WebApi.V1.Controllers
         [HttpGet("list")]
         [Produces("application/json")]
         public async Task<IEnumerable<ClientInfo>> GetClients([FromQuery]bool projects)
-            => await _clientService.GetClientsAsync(projects);
+            => await _clientService.GetClientsAsync(projects, User);
 
         /// <summary>
         /// Display general time tracking information for each client
@@ -39,7 +39,7 @@ namespace Freelancme.WebApi.V1.Controllers
         [HttpGet("get")]
         [Produces("application/json")]
         public async Task<Client> GetClient([FromQuery]Guid id)
-            => await _clientService.GetClientAsync(id);
+            => await _clientService.GetClientAsync(id, User);
 
         /// <summary>
         /// Display general time tracking information for each client
@@ -48,6 +48,6 @@ namespace Freelancme.WebApi.V1.Controllers
         [HttpPost("save")]
         [Produces("application/json")]
         public async Task<bool> SaveClient([FromBody]Client client)
-            => await _clientService.SaveClientAsync(client);
+            => await _clientService.SaveClientAsync(client, User);
     }
 }

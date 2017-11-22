@@ -27,7 +27,7 @@
         <p v-else><em>Loading...</em></p>
 
         <!-- Edit Dialog -->
-        <modal v-model="editClient" @ok="editClient = false" title="Client">
+        <modal v-model="editClient" @ok="editClient = false" title="Client" :backdrop="false">
             <div slot="modal-body" class="modal-body">
                 <div>
                     <label for="Company">Is Company</label>

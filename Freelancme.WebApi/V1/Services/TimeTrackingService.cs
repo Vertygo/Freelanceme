@@ -19,10 +19,10 @@ namespace Freelancme.WebApi.V1.Services
         private readonly IMapper _mapper;
         private readonly IRepository<User> _userRepo;
 
-        public TimeTrackingService(IUserManager userManager,
-            IMapper mapper,
-            IRepository<TimeTracking> timeTrackingRepo,
-            IRepository<User> userRepo)
+        public TimeTrackingService(IMapper mapper,
+            IUserManager userManager,
+            IRepository<User> userRepo,
+            IRepository<TimeTracking> timeTrackingRepo)
         {
             _userManager = userManager;
             _timeTrackingRepo = timeTrackingRepo;
@@ -39,7 +39,7 @@ namespace Freelancme.WebApi.V1.Services
         /// <returns></returns>
         public async Task<IEnumerable<TimeTrackingSummary>> GetTimeTrackingSummary(TimeTrackingSummaryRequest request, ClaimsPrincipal user)
         {
-            var username = (await _userManager.GetUserAsync(user)).UserName;
+            var username = (await _userManager.GetAppUserAsync(user)).UserName;
             var currentUser = (await _userRepo.GetFilteredAsync(u => u.Username == username)).FirstOrDefault(); // we should have same guid in both tables?
             var timeTrackingList = await _timeTrackingRepo.GetFilteredAsync(f => f.User.Id == currentUser.Id && f.Date >= request.DateFrom.Date && f.Date <= request.DateTo.Date, e => e.Client, e => e.User);
 
@@ -62,7 +62,7 @@ namespace Freelancme.WebApi.V1.Services
         /// <returns></returns>
         public async Task<IEnumerable<TimeTrackingDetails>> GetTimeTrackingDetails(TimeTrackingDetailRequest request, ClaimsPrincipal user)
         {
-            var currentUser = await GetUser(user);
+            var currentUser = await _userManager.GetUserAsync(user);
             var timeTrackingList = await (_timeTrackingRepo.GetFilteredAsync(f => f.User.Id == currentUser.Id && f.Date >= request.StartDate.Date && f.Date <= request.EndDate.Date && f.Client.Id == request.ClientID,
                 e => e.Client,
                 e => e.User,
@@ -73,20 +73,13 @@ namespace Freelancme.WebApi.V1.Services
 
         public async Task<bool> SaveTimeLogAsync(TimeLog timeLog, ClaimsPrincipal user)
         {
-            var currentUser = await GetUser(user);
+            var currentUser = await _userManager.GetUserAsync(user);
             var timeTracking = _mapper.Map<TimeTracking>(timeLog);
 
             timeTracking.UserId = currentUser.Id;
             _timeTrackingRepo.Add(timeTracking);
 
             return await _timeTrackingRepo.SaveChangesAsync();
-        }
-
-        private async Task<User> GetUser(ClaimsPrincipal user)
-        {
-            var username = (await _userManager.GetUserAsync(user)).UserName;
-
-            return (await _userRepo.GetFilteredAsync(u => u.Username == username)).FirstOrDefault(); // we should have same guid in both tables?
         }
     }
 }

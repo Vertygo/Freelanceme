@@ -1,49 +1,65 @@
 ﻿using AutoMapper;
 using Freelanceme.Domain;
 using Freelanceme.Domain.Core;
+using Freelanceme.Security;
 using Freelancme.WebApi.V1.Dto;
 using Freelancme.WebApi.V1.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Freelancme.WebApi.V1.Services
 {
     public class ClientService : IClientService
     {
+        private readonly IRepository<User> _userRepo;
+        private readonly IUserManager _userManager;
         private readonly IRepository<Freelanceme.Domain.Client> _clientRepo;
-        private readonly IRepository<Freelanceme.Domain.Project> _projectRepo;
         private readonly IMapper _mapper;
 
         public ClientService(IMapper mapper,
-            IRepository<Freelanceme.Domain.Client> clientRepo,
-            IRepository<Freelanceme.Domain.Project> projectRepo)
+            IUserManager userManager,
+            IRepository<User> userRepo,
+            IRepository<Freelanceme.Domain.Client> clientRepo)
         {
             _clientRepo = clientRepo;
-            _projectRepo = projectRepo;
             _mapper = mapper;
+            _userManager = userManager;
+            _userRepo = userRepo;
         }
 
-        public async Task<Dto.Client> GetClientAsync(Guid clientId) =>
-            _mapper.Map<Dto.Client>(await _clientRepo.GetAsync(clientId, p => p.Address));
-
-
-        public async Task<List<ClientInfo>> GetClientsAsync(bool projects)
+        public async Task<Dto.Client> GetClientAsync(Guid clientId, ClaimsPrincipal user)
         {
+            var currentUser = await _userManager.GetUserAsync(user);
+
+            return _mapper.Map<Dto.Client>(await _clientRepo.GetAsync(f => f.Id == clientId && f.UserId == currentUser.Id, a => a.Address));
+        }
+
+        public async Task<List<ClientInfo>> GetClientsAsync(bool projects, ClaimsPrincipal user)
+        {
+            var currentUser = await _userManager.GetUserAsync(user);
+
             if (projects)
-                return _mapper.Map<List<ClientInfo>>(await _clientRepo.GetAllAsync(a => a.Address, p => p.Projects)); 
+                return _mapper.Map<List<ClientInfo>>(await _clientRepo.GetFilteredAsync(f => f.UserId == currentUser.Id, a => a.Address, p => p.Projects)); 
             else
-                return _mapper.Map<List<ClientInfo>>(await _clientRepo.GetAllAsync(a => a.Address));
+                return _mapper.Map<List<ClientInfo>>(await _clientRepo.GetFilteredAsync(f => f.UserId == currentUser.Id, a => a.Address));
         }
 
-        public async Task<bool> SaveClientAsync(Dto.Client client)
+        public async Task<bool> SaveClientAsync(Dto.Client client, ClaimsPrincipal user)
         {
+            var currentUser = await _userManager.GetUserAsync(user);
             var obj = _mapper.Map<Freelanceme.Domain.Client>(client);
 
             if (client.Id == Guid.Empty)
             {
+                obj.UserId = currentUser.Id;
                 _clientRepo.Add(obj);
-                obj.Projects = new List<Project> { new Project { Name = "Project 1", IsActive = true } };
+                obj.Projects = new List<Project>
+                {
+                    new Project { Name = "Project 1", IsActive = true },
+                    new Project { Name = "Project 2", IsActive = true }
+                };
             }
             else
             {

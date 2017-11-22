@@ -53,17 +53,19 @@
             </div>
         </modal>
 
-        <modal v-model="showLogWork" @ok="showLogWork = false" title="Log Work">
+        <modal v-model="showLogWork" @ok="showLogWork = false" title="Log Work" :backdrop="false">
 
             <div slot="modal-body" class="modal-body">
                 <!-- date should be in local format -->
-                <datepicker class="form-control" v-model="model.DateFormat" placeholder="Date" />
-                <input class="form-control" type="number" name="WorkingHours" v-model="model.WorkingHours" placeholder="Working Hours" required="required" />
-                <vselect class="form-control" v-model="model.ClientId" :options="clients" options-label="Name" options-value="Id" placeholder="Client" />
-                <vselect class="form-control" v-if="model.ClientId" v-model="model.ProjectId" :options="projects" options-label="Name" options-value="Id" placeholder="Project" />
+                <formValidator v-model="validEntry">
+                    <datepicker class="form-control" required v-model="model.DateFormat" placeholder="Date" />
+                    <bsInput class="form-control" required type="number" v-model="model.WorkingHours" placeholder="Working Hours"></bsInput>
+                    <vselect class="form-control" required v-model="model.ClientId" :options="clients" options-label="Name" options-value="Id" placeholder="Client" />
+                    <vselect class="form-control" required v-model="model.ProjectId" :options="projects" options-label="Name" options-value="Id" placeholder="Project" />
+                </formValidator>
             </div>
             <div slot="modal-footer" class="modal-footer">
-                <button type="Submit" class="btn btn-lg btn-primary btn-block" name="Submit" value="Save" v-on:click.stop.prevent="onSaveLogWork()">Save</button>
+                <button type="Submit" class="btn btn-lg btn-primary btn-block" name="Submit" value="Save" :disabled="!validEntry" v-on:click.stop.prevent="onSaveLogWork()">Save</button>
             </div>
         </modal>
     </div>
