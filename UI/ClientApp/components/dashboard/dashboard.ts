@@ -63,7 +63,7 @@ export default class Dashboard extends Vue {
     showDetails: boolean = false;
     showLogWork: boolean = false;
     loaded: boolean = false;
-    validEntry: boolean = false;
+    isValidEntry: boolean = false;
 
 
     get totalWorkingTime(): number {

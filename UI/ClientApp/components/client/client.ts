@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import { modal, checkbox } from 'vue-strap'
+import { modal, checkbox, formValidator, input } from 'vue-strap'
 import { ClientInfo } from '../../common'
 import * as Api from '../../api'
 
@@ -21,7 +21,9 @@ interface Client {
 @Component({
     components: {
         modal: modal,
-        checkbox: checkbox
+        checkbox: checkbox,
+        formValidator: formValidator,
+        bsInput: input
     }
 })
 export default class ClientComponent extends Vue {
@@ -29,6 +31,7 @@ export default class ClientComponent extends Vue {
     editClient: boolean = false;
     model: Client = {};
     loaded: boolean = false;
+    isValidEntry: boolean = false;
 
     async mounted() {
         this.load();

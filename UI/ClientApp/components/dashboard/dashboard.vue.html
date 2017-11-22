@@ -57,15 +57,15 @@
 
             <div slot="modal-body" class="modal-body">
                 <!-- date should be in local format -->
-                <formValidator v-model="validEntry">
+                <formValidator v-model="isValidEntry">
                     <datepicker class="form-control" required v-model="model.DateFormat" placeholder="Date" />
-                    <bsInput class="form-control" required type="number" v-model="model.WorkingHours" placeholder="Working Hours"></bsInput>
+                    <bs-input class="form-control" required type="number" v-model="model.WorkingHours" placeholder="Working Hours"></bs-input>
                     <vselect class="form-control" required v-model="model.ClientId" :options="clients" options-label="Name" options-value="Id" placeholder="Client" />
                     <vselect class="form-control" required v-model="model.ProjectId" :options="projects" options-label="Name" options-value="Id" placeholder="Project" />
                 </formValidator>
             </div>
             <div slot="modal-footer" class="modal-footer">
-                <button type="Submit" class="btn btn-lg btn-primary btn-block" name="Submit" value="Save" :disabled="!validEntry" v-on:click.stop.prevent="onSaveLogWork()">Save</button>
+                <button type="Submit" class="btn btn-lg btn-primary btn-block" name="Submit" value="Save" :disabled="!isValidEntry" v-on:click.stop.prevent="onSaveLogWork()">Save</button>
             </div>
         </modal>
     </div>

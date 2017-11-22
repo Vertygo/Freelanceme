@@ -1,5 +1,5 @@
 {
-  "name": "Freelancme",
+  "name": "Freelanceme",
   "version": "0.0.0",
   "dependencies": {
     "@types/webpack-env": {

@@ -29,28 +29,30 @@
         <!-- Edit Dialog -->
         <modal v-model="editClient" @ok="editClient = false" title="Client" :backdrop="false">
             <div slot="modal-body" class="modal-body">
-                <div>
-                    <label for="Company">Is Company</label>
-                    <input type="checkbox" class="form-control left" name="Company" v-model="model.IsCompany" placeholder="Is Company" text />
-                    <input type="text" class="form-control" name="Company" v-if="model.IsCompany" v-model="model.CompanyName" placeholder="Company Name" />
-                </div>
-                <br />
-                <input type="text" class="form-control" name="Name" v-model="model.Name" placeholder="Contact Name" required="required" />
-                <input type="text" class="form-control" name="Surname" v-model="model.Surname" placeholder="Contact Surname" required="required" />
-                <input type="text" class="form-control" name="Surname" v-model="model.Website" placeholder="Website" required="required" />
-                <br />
-                <input type="text" class="form-control" name="Country" v-model="model.AddressCountry" placeholder="Country" required="required" />
-                <input type="text" class="form-control" name="City" v-model="model.AddressCity" placeholder="City" required="required" />
-                <input type="text" class="form-control" name="Street" v-model="model.AddressStreet" placeholder="Street" required="required" />
+                <formValidator v-model="isValidEntry">
+                    <div>
+                        <label for="Company">Is Company</label>
+                        <input type="checkbox" class="form-control left" name="Company" v-model="model.IsCompany" placeholder="Is Company" />
+                        <bs-input required type="text" class="form-control" name="Company" v-if="model.IsCompany" v-model="model.CompanyName" placeholder="Company Name" />
+                    </div>
+                    <br />
+                    <bs-input required type="text" class="form-control" name="Name" v-model="model.Name" placeholder="Contact Name" />
+                    <bs-input required type="text" class="form-control" name="Surname" v-model="model.Surname" placeholder="Contact Surname" />
+                    <bs-input required type="text" class="form-control" name="Surname" v-model="model.Website" placeholder="Website" />
+                    <br />
+                    <bs-input required type="text" class="form-control" name="Country" v-model="model.AddressCountry" placeholder="Country" />
+                    <bs-input required type="text" class="form-control" name="City" v-model="model.AddressCity" placeholder="City" />
+                    <bs-input required type="text" class="form-control" name="Street" v-model="model.AddressStreet" placeholder="Street" />
 
-                <div>
-                    <label for="Active">Is Active</label>
-                    <input type="checkbox" class="form-control left" name="Active" v-model="model.IsActive" placeholder="Is Active" />
-                </div>
+                    <div>
+                        <label for="Active">Is Active</label>
+                        <input type="checkbox" class="form-control left" name="Active" v-model="model.IsActive" placeholder="Is Active" />
+                    </div>
+                </formValidator>
             </div>
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-default" @click="editClient = false">Cancel</button>
-                <button type="button" class="btn btn-success" v-on:click="saveClient">Save</button>
+                <button type="button" class="btn btn-success" :disabled="!isValidEntry" v-on:click="saveClient">Save</button>
             </div>
         </modal>
 
