@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Freelanceme.WebApi.V1.Dto
+namespace Freelanceme.WebApi.V1.Dto.Request
 {
-    public class TimeLog
+    public class TimeLogRequest
     {
         public DateTime Date { get; set; }
 

@@ -1,20 +1,13 @@
 ﻿import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import * as Api from '../../api'
+import { RegisterRequest } from '../../models/request/registerrequest.model'
 import Router from '../../router'
-
-interface RegisterDto {
-    Name?: string;
-    Surname?: string;
-    Email?: string;
-    Username?: string;
-    Password?: string;
-}
 
 @Component
 export default class Register extends Vue {
 
-    model: RegisterDto = {};
+    model: RegisterRequest = {};
 
     errors: any;
 

@@ -50,7 +50,7 @@ namespace Freelanceme.WebApi.V1.Controllers
         /// <returns></returns>
         [HttpPost("save")]
         [Produces("application/json")]
-        public async Task<bool> SaveTimeLog([FromBody]TimeLog request)
+        public async Task<bool> SaveTimeLog([FromBody]TimeLogRequest request)
             => await _timeTrackingService.SaveTimeLogAsync(request, User);
     }
 }

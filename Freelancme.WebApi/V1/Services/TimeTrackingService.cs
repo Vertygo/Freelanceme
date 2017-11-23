@@ -71,7 +71,7 @@ namespace Freelanceme.WebApi.V1.Services
             return _mapper.Map<IEnumerable<TimeTrackingDetails>>(timeTrackingList);
         }
 
-        public async Task<bool> SaveTimeLogAsync(TimeLog timeLog, ClaimsPrincipal user)
+        public async Task<bool> SaveTimeLogAsync(TimeLogRequest timeLog, ClaimsPrincipal user)
         {
             var currentUser = await _userManager.GetUserAsync(user);
             var timeTracking = _mapper.Map<TimeTracking>(timeLog);

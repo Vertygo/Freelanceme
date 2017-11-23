@@ -14,7 +14,7 @@ namespace Freelanceme.WebApi
                 .ForMember(obj => obj.Name, (IMemberConfigurationExpression<Freelanceme.Domain.Client, ClientInfo, string> opt) => opt.MapFrom(prop => prop.IsCompany ? prop.CompanyName : $"{prop.Name} {prop.Surname}"))
                 .ForMember(obj => obj.Address, (IMemberConfigurationExpression<Freelanceme.Domain.Client, ClientInfo, string> opt) => opt.MapFrom(prop => prop.Address.Street));
 
-            CreateMap<Freelanceme.Domain.TimeTracking, V1.Dto.TimeLog>().ReverseMap();
+            CreateMap<Freelanceme.Domain.TimeTracking, V1.Dto.Request.TimeLogRequest>().ReverseMap();
             CreateMap<Freelanceme.Domain.Client, V1.Dto.Client>().ReverseMap();
             CreateMap<Freelanceme.Domain.Address, V1.Dto.Client>().ReverseMap();
             CreateMap<Freelanceme.Domain.Project, V1.Dto.ProjectInfo>();

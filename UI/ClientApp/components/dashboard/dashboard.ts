@@ -1,42 +1,17 @@
 ﻿import Vue from 'vue'
 import { Component, Watch, Prop, Model } from 'vue-property-decorator'
 import { datepicker, modal, dropdown, select, formValidator, input } from 'vue-strap'
-import { ClientInfo, Project } from '../../common'
+import { ClientInfo } from '../../models/clientinfo.model'
+import { Project } from '../../models/project.model'
+
+import { TimeTrackingSummary } from '../../models/timetrackingsummary.model'
+import { TimeTrackingDetails } from '../../models/timetrackingdetails.model'
+import { TimeLogRequest } from '../../models/request/timelogrequest.model'
+import { TimeTrackingSummaryRequest } from '../../models/request/timetrackingsummaryrequest.model'
+import { TimeTrackingDetailRequest } from '../../models/request/timetrackingdetailrequest.model'
+
 import Moment from 'moment';
 import * as Api from '../../api'
-
-interface TimeTrackingSummary {
-    WorkingHours: number;
-    Client: string;
-    ClientID: string;
-    StartDate: Date;
-    EndDate: Date;
-}
-
-interface TimeTrackingDetails {
-    ProjectName: string;
-    WorkingHours: number;
-    Date: Date;
-}
-
-interface TimeTrackingSummaryRequest {
-    DateFrom?: Date,
-    DateTo?: Date
-}
-
-interface TimeTrackingDetailRequest {
-    ClientID?: string;
-    StartDate?: Date;
-    EndDate?: Date;
-}
-
-interface LogWork {
-    DateFormat: string;
-    Date?: Date;
-    WorkingHours: number;
-    ClientId: string;
-    ProjectId: string;
-}
 
 @Component({
     components: {
@@ -49,7 +24,7 @@ interface LogWork {
     }
 })
 export default class Dashboard extends Vue {
-    model: LogWork = { DateFormat: Vue.filter('formatDate')(new Date()), WorkingHours: 0, ClientId: '', ProjectId: '' };
+    model: TimeLogRequest = { DateFormat: Vue.filter('formatDate')(new Date()), WorkingHours: 0, ClientId: '', ProjectId: '' };
 
     projects: Project[] = [];
     client: string; // client id
@@ -73,7 +48,7 @@ export default class Dashboard extends Vue {
     }
     
     @Watch('model', { immediate: false, deep: true })
-    onModelChanged(changed: LogWork) {
+    onModelChanged(changed: TimeLogRequest) {
         if (changed != null && changed.ClientId != null) {
             let selectedClient = this.clients.find(c => c.Id == changed.ClientId);
 
@@ -145,7 +120,7 @@ export default class Dashboard extends Vue {
     async onSaveLogWork() {
         this.model.Date = Vue.filter('toDate')(this.model.DateFormat); // control holds date in string format so we have to cast (change UI control)
 
-        await Api.post<LogWork>('api/timetracking/save', this.model)
+        await Api.post<TimeLogRequest>('api/timetracking/save', this.model)
             .then(response => {
                 this.showLogWork = false;
                 this.load();

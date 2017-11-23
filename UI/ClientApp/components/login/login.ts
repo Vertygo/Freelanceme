@@ -1,16 +1,9 @@
 ﻿import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import { LoginRequest } from '../../models/request/loginrequest.model'
+import { Token } from '../../models/token.model'
 import * as Api from '../../api'
 import * as Store from '../../store/store'
-
-interface LoginRequest {
-    Username: string;
-    Password: string;
-}
-
-interface Token {
-    token: string;
-}
 
 @Component
 export default class Login extends Vue {

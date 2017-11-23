@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { modal, checkbox, formValidator, input } from 'vue-strap'
-import { ClientInfo } from '../../common'
+import { ClientInfo } from '../../models/clientinfo.model'
 import * as Api from '../../api'
 
 interface Client {
