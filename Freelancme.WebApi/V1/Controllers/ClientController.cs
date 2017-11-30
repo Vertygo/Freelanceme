@@ -16,7 +16,7 @@ namespace Freelanceme.WebApi.V1.Controllers
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class ClientController : Controller
     {
-        private IClientService _clientService;
+        private readonly IClientService _clientService;
 
         public ClientController(IClientService clientService)
         {
@@ -26,28 +26,31 @@ namespace Freelanceme.WebApi.V1.Controllers
         /// <summary>
         /// Display general time tracking information for each client
         /// </summary>
+        /// <param name="projects">Output projects in result</param>
         /// <returns></returns>
         [HttpGet("list")]
         [Produces("application/json")]
-        public async Task<IEnumerable<ClientInfo>> GetClients([FromQuery]bool projects)
+        public async Task<IEnumerable<ClientInfo>> GetClientsAsync([FromQuery]bool projects)
             => await _clientService.GetClientsAsync(projects, User);
 
         /// <summary>
         /// Display general time tracking information for each client
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("get")]
         [Produces("application/json")]
-        public async Task<Client> GetClient([FromQuery]Guid id)
+        public async Task<Client> GetClientAsync([FromQuery]Guid id)
             => await _clientService.GetClientAsync(id, User);
 
         /// <summary>
         /// Display general time tracking information for each client
         /// </summary>
+        /// <param name="client"></param>
         /// <returns></returns>
         [HttpPost("save")]
         [Produces("application/json")]
-        public async Task<bool> SaveClient([FromBody]Client client)
+        public async Task<bool> SaveClientAsync([FromBody]Client client)
             => await _clientService.SaveClientAsync(client, User);
     }
 }

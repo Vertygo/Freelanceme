@@ -42,20 +42,17 @@ namespace Freelanceme.WebApi.V1.Controllers
         [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
         [ProducesResponseType(typeof(IDictionary<string, string>), 403)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Login([FromBody]LoginRequest login)
+        public async Task<IActionResult> LoginAsync([FromBody]LoginRequest login)
         {
             var token = await _authService.Login(login);
 
-            if (token != null)
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-            else
-                return NotFound("Invalid login attempt");
+            return token != null ? (ObjectResult)Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) }) : NotFound("Invalid login attempt");
         }
 
         /// <summary>
         /// User registration.
         /// </summary>
-        /// <param name="register">Registration object</param>
+        /// <param name="request">Request registration object</param>
         /// <remarks>
         /// Sample request:
         ///
@@ -77,7 +74,7 @@ namespace Freelanceme.WebApi.V1.Controllers
         [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
         [ProducesResponseType(typeof(IDictionary<string, string>), 403)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Register([FromBody]RegisterRequest request)
+        public async Task<IActionResult> RegisterAsync([FromBody]RegisterRequest request)
         {
             var isCreated = await _authService.CreateUser(request);
 
